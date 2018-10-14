@@ -7,7 +7,10 @@ import random
 
 class APIKey:
     REQUEST_ERRORS = (requests.exceptions.HTTPError, requests.exceptions.RequestException)
-    URL = 'https://translate.yandex.com'
+    URLS = [
+        'translate.yandex.ru', 'translate.yandex.ua', 'translate.yandex.by',
+        'translate.yandex.kz', 'ceviri.yandex.com.tr', 'translate.yandex.com'
+            ]
     TARGET = 'SPEECHKIT_KEY:'
 
     def __init__(self, lifetime=3600):
@@ -26,10 +29,10 @@ class APIKey:
 
     def _get_key(self):
         key = None
-        for delay in range(1, 4):
-            key = self._extract()
-            if key is None:
-                time.sleep(random.random() * delay)
+        for target in self.URLS:
+            key = self._extract('https://{}'.format(target))
+            if not key:
+                time.sleep(random.random())
             else:
                 break
         if not key:
@@ -37,9 +40,9 @@ class APIKey:
         self._by_expire = time.time() + self._lifetime
         self._key = key
 
-    def _extract(self):
+    def _extract(self, url):
         try:
-            response = requests.get(self.URL)
+            response = requests.get(url)
         except self.REQUEST_ERRORS as e:
             raise RuntimeError(e)
         line = response.text
