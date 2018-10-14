@@ -21,10 +21,6 @@ install:
   - python setup.py sdist bdist_wheel
   - pip install dist/*.whl
 
-before_script:
-  - wget https://translate.yandex.com/ -O test
-  - cat test
-
 script:
   - python -m unittest discover -v -s ya_speech_key/tests/
 
