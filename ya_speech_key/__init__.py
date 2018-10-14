@@ -2,11 +2,12 @@
 
 import requests
 import time
+import random
 
 
 class APIKey:
     REQUEST_ERRORS = (requests.exceptions.HTTPError, requests.exceptions.RequestException)
-    URL = 'https://translate.yandex.ru'
+    URL = 'https://translate.yandex.com'
     TARGET = 'SPEECHKIT_KEY:'
 
     def __init__(self, lifetime=3600):
@@ -17,11 +18,24 @@ class APIKey:
     @property
     def key(self):
         if not self._key or self._rotten():
-            self._extract()
+            self._get_key()
         return self._key
 
     def _rotten(self):
         return time.time() > self._by_expire
+
+    def _get_key(self):
+        key = None
+        for delay in range(1, 4):
+            key = self._extract()
+            if key is None:
+                time.sleep(random.random() * delay)
+            else:
+                break
+        if not key:
+            raise RuntimeError('API Key not extracted. Yandex change page?')
+        self._by_expire = time.time() + self._lifetime
+        self._key = key
 
     def _extract(self):
         try:
@@ -32,12 +46,9 @@ class APIKey:
         end = 0
         result = None
         start = line.find(self.TARGET)
-        if start:
+        if start > -1:
             start += len(self.TARGET)
             end = line.find(',', start)
         if start and end and start < end:
             result = line[start:end].strip(' \'')
-        if not result:
-            raise RuntimeError('API Key not extracted. Yandex change page?')
-        self._by_expire = time.time() + self._lifetime
-        self._key = result
+        return result
