@@ -1,0 +1,37 @@
+language: python
+
+python:
+  - '2.7'
+  - '3.4'
+  - '3.5'
+  - '3.6'
+  - '3.7-dev'
+
+matrix:
+  allow_failures:
+  - python: '3.7-dev'
+
+sudo: false
+
+git:
+  depth: 1
+
+install:
+  - pip install --upgrade setuptools wheel
+  - python setup.py sdist bdist_wheel
+  - pip install dist/*.whl
+
+script:
+  - python -m unittest discover -v -s ya_speech_key/tests/
+
+deploy:
+  - provider: pypi
+    user: Aculeasis
+    password:
+      secure: pass
+    distributions: sdist bdist_wheel
+    skip_existing: true
+    on:
+      condition: "$TRAVIS_PYTHON_VERSION == 3.6"
+      tags: true
+      branch: master
