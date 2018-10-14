@@ -8,6 +8,7 @@ from ya_speech_key import APIKey
 class Tests(unittest.TestCase):
     def test_01(self):
         key = APIKey()
+        print(key.key)
         self.assertEqual(key.key, key.key)
         self.assertTrue('-' in key.key)
         self.assertTrue(' ' not in key.key)

@@ -35,3 +35,14 @@ deploy:
       condition: "$TRAVIS_PYTHON_VERSION == 3.6"
       tags: true
       branch: master
+
+  - provider: pypi
+    user: Aculeasis
+    password:
+      secure: WwX/XMaSXL8UOxv/5V+u6aCZHLIWSYfOkNR0rnX77CWGgtbH6dC0I4zIMWOciHnRZYgSgs8w6zZbO+qoOLNWeVsLRl+ijF735tolPeJGnEiRpPpb9ydftjI5ry9NJCj4XxMbcjB97g9y6D9aTD1toTRh0zEvGK1IsbxsHx4S9uB4d2fKkKodt+L3ONeVDFiHtP6bJw49Ofq3Q6eyHOTavoc6hYpjve0EGyZjiWtpbMD/hrkQLy/cDCgBDhdbGNNSlEFBsWAL4z26w3ZrDsaa1PLNi43fn0fXXyGaoMATdecsii+ZOl1H9NTz/5dNJJsaElTcC/YMY0VYKSuhbzI2E6eosK3YzhSu+fdJWB4nrObGTrs3MOkvLf0vdm9dMOzFl1Btid+k7mLV+8blulSdheZ76CLGMxnDh7eMkOuT8E5La/TdBNoGwerxwrO9lZTCog4rRgU2Y/5Jr6jhzVIGGJ86cFvs4ngzarqrzXb3MZqrrm5MHIp3zeVOR+Rvhl5D2ME9edy8l5ak5S9lW6Wzx+bFjMQalziyQMjYivGH0X6N3ooMnxnwXcj4o/GekOv7y0BP+NRex16fjgTcDwqO8raJRtE06dRc06qNHWBnTlPEBmCJqhJpqIXP2mp/ahNnOr8iZQP3hwsVBabK4JRVBvvLCxzvhXfhl6Zz/90v3/g=
+    distributions: bdist_wheel
+    skip_existing: true
+    on:
+      condition: "$TRAVIS_PYTHON_VERSION == 2.7"
+      tags: true
+      branch: master
