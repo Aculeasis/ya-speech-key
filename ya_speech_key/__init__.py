@@ -24,9 +24,10 @@ class APIKey:
         'Cache-Control': 'no-cache'
     }
 
-    def __init__(self, lifetime=3600):
+    def __init__(self, lifetime=3600, proxies=None):
         self._key = None
         self._lifetime = lifetime
+        self._proxies = proxies
         self._by_expire = 0
 
     @property
@@ -47,7 +48,7 @@ class APIKey:
 
     def _extract(self):
         try:
-            response = requests.get(self.URL, headers=self.HEADERS)
+            response = requests.get(self.URL, headers=self.HEADERS, proxies=self._proxies)
         except self.REQUEST_ERRORS as e:
             raise RuntimeError(e)
         line = response.text
