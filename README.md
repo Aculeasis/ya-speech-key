@@ -1,7 +1,7 @@
 ### Extracts Yandex Speech API key from translate page
 [![PyPI version](https://img.shields.io/pypi/v/ya-speech-key.svg)](https://pypi.org/project/ya-speech-key)
 [![Python versions](https://img.shields.io/badge/python-2.7%20|%203.4%2B-blue.svg)](https://github.com/Aculeasis/ya-speech-key)
-[![Build Status](https://travis-ci.org/Aculeasis/ya-speech-key.svg?branch=master)](https://travis-ci.org/Aculeasis/ya-speech-key)
+[![Build Status](https://travis-ci.com/Aculeasis/ya-speech-key.svg?branch=master)](https://travis-ci.com/Aculeasis/ya-speech-key)
 
 This API key can be used for Yandex SpeechKit Cloud API. No guarantees, Yandex can break it at any time.
 
